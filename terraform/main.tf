@@ -1,19 +1,12 @@
-
-#Defining cloud run service
-resource "google_cloud_run_service" "default" {
-    name     = "my-cloud-run-service"
+resource "google_cloud_run_v2_service" "default" {
+    name     = "cloudrun-service-trainee"
     location = var.region
+    deletion_protection = false
+    ingress = "INGRESS_TRAFFIC_ALL"
 
     template {
-        spec {
-            containers {
-                image = var.container_image #This will be given in the console by the user.
-            }
+        containers {
+            image = var.container_image
         }
-    }
-
-    traffic {
-        percent = 100
-        latest_revision = true
     }
 }
